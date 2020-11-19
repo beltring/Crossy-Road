@@ -4,6 +4,7 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     private ObjectPooler OP;
+    private bool firstTerrain = true;
     private List<GameObject> currentTerrains = new List<GameObject>();
     [SerializeField] private List<string> terrainsTag;
 
@@ -68,20 +69,29 @@ public class Generator : MonoBehaviour
     {
         string tag = terrainsTag[Random.Range(0, 3)];
         GameObject terrain = null;
+        GameObject coin = null;
 
-        if (tag == "Grass")
+        if (firstTerrain)
         {
             terrain = OP.GetPooledObject(Random.Range(2, 6));
+            firstTerrain = false;
         }
-        else if(tag == "Road")
+        else
         {
-            terrain = OP.GetPooledObject(Random.Range(0, 2));
+            if (tag == "Grass")
+            {
+                terrain = OP.GetPooledObject(Random.Range(2, 6));
+            }
+            else if (tag == "Road")
+            {
+                terrain = OP.GetPooledObject(Random.Range(0, 2));
+            }
+            else if (tag == "Water")
+            {
+                terrain = OP.GetPooledObject(Random.Range(8, 10));
+            }
         }
-        else if(tag == "Water")
-        {
-            terrain = OP.GetPooledObject(Random.Range(8,10));
-        }
-
+        
         return terrain;
     }
 }

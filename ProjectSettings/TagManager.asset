@@ -9,6 +9,9 @@ TagManager:
   - Water
   - Bus
   - Log
+  - Music
+  - Restart
+  - Coin
   layers:
   - Default
   - TransparentFX
