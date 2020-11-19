@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using DG.Tweening;
+using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
@@ -16,7 +16,10 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, player.transform.position + offset, smoothness);
-        //transform.DOMove(player.transform.position + offset, duration);
+        //transform.position = Vector3.Lerp(transform.position, player.transform.position + offset, smoothness);
+        if(player != null)
+        {
+            transform.DOMove((player.transform.position + offset), smoothness);
+        }
     }
 }

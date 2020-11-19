@@ -5,7 +5,8 @@ public class Generator : MonoBehaviour
 {
     private ObjectPooler OP;
     private List<GameObject> currentTerrains = new List<GameObject>();
-    
+    [SerializeField] private List<string> terrainsTag;
+
     [Header("Minimum distance from player")]
     public int minDistanceFromPlayer;
 
@@ -44,7 +45,8 @@ public class Generator : MonoBehaviour
     {
         if ((currentPosition.x - playerPosition.x < minDistanceFromPlayer) || isStart)
         {
-            GameObject terrain = OP.GetPooledObject(Random.Range(0, 3));
+            GameObject terrain = GetRandomObject();
+
             currentTerrains.Add(terrain);
             terrain.transform.position = currentPosition;
             terrain.SetActive(true);
@@ -60,5 +62,26 @@ public class Generator : MonoBehaviour
 
             currentPosition.x++;
         }
+    }
+
+    public GameObject GetRandomObject()
+    {
+        string tag = terrainsTag[Random.Range(0, 3)];
+        GameObject terrain = null;
+
+        if (tag == "Grass")
+        {
+            terrain = OP.GetPooledObject(Random.Range(2, 6));
+        }
+        else if(tag == "Road")
+        {
+            terrain = OP.GetPooledObject(Random.Range(0, 2));
+        }
+        else if(tag == "Water")
+        {
+            terrain = OP.GetPooledObject(Random.Range(8,10));
+        }
+
+        return terrain;
     }
 }
