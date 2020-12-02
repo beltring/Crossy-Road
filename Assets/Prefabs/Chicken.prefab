@@ -387,6 +387,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generator: {fileID: 0}
   scoreText: {fileID: 0}
+  canvasHand: {fileID: 0}
+  canvasMusic: {fileID: 0}
+  canvasRestart: {fileID: 0}
+  canvasBestStore: {fileID: 0}
+  canvasCoin: {fileID: 0}
 --- !u!54 &78919883
 Rigidbody:
   m_ObjectHideFlags: 0

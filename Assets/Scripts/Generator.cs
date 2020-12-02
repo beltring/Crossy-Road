@@ -29,17 +29,6 @@ public class Generator : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.touchCount > 0))
-        {
-            this.SpawnTerrain(false, new Vector3(0, 0, 0));
-        }
-
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            this.SpawnTerrain(false, new Vector3(0, 0, 0));
-        }
-#endif
     }
 
     public void SpawnTerrain( bool isStart, Vector3 playerPosition)

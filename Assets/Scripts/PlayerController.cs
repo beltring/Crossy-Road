@@ -7,11 +7,14 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    private const int MAX_OBJECT_POSITION = 18;
+    private const int MIN_OBJECT_POSITION = -18;
+
     private Animator animator;
     private bool isJumping;
     private int score = 0;
     private int bestScore;
-    private bool isBackStep = false;
+    //private bool isBackStep = true;
     //private bool isLose = false;
     public static PlayerController player;
     private int coins;
@@ -45,13 +48,19 @@ public class PlayerController : MonoBehaviour
             score++;
             scoreText.text = score.ToString();
             bestScore = PlayerPrefs.GetInt("score");
-            isBackStep = true;
+
+            /*if (isBackStep)
+            {
+                
+                isBackStep = false;
+            }*/
 
             if (score > bestScore)
             {
                 PlayerPrefs.SetInt("score", score);
             }
             canvasBestStore.GetComponent<Text>().text = $"Рекорд:{PlayerPrefs.GetInt("score")}";
+
 
             float zDifference = 0;
 
@@ -70,7 +79,7 @@ public class PlayerController : MonoBehaviour
         {
             MoveCharacter(new Vector3(0, 0, -1), 180);
         }
-        else if(Input.GetKeyDown(KeyCode.S) && !isJumping && isBackStep)
+        else if(Input.GetKeyDown(KeyCode.S) && !isJumping)
         {
             float zDifference = 0;
 
@@ -80,6 +89,8 @@ public class PlayerController : MonoBehaviour
             }
             MoveCharacter(new Vector3(-1, 0, zDifference), 90);
         }
+
+        KillPlayer();
     }
 
     private void FinishJump()
@@ -144,6 +155,17 @@ public class PlayerController : MonoBehaviour
             {
                 canvasCoin.GetComponent<AudioSource>().Play();
             }
+        }
+    }
+
+    private void KillPlayer()
+    {
+        float zPos = this.transform.position.z;
+
+        if (zPos > MAX_OBJECT_POSITION || zPos < MIN_OBJECT_POSITION)
+        {
+            Destroy(this);
+            this.Lose();
         }
     }
 }
